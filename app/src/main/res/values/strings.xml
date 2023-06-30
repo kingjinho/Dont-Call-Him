@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">DontCallHim</string>
+    <string name="msg_add_number_you_do_not_want_to_make">전화번호 입력하기</string>
 </resources>
