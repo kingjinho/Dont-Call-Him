@@ -33,7 +33,7 @@
         </service>
 
         <activity
-            android:name=".MainActivity"
+            android:name=".DontCallHimActivity"
             android:exported="true"
             android:theme="@style/Theme.DontCallHim">
             <intent-filter>
