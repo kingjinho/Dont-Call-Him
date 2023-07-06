@@ -33,6 +33,3 @@ subprojects {
     }
 }
 
-repositories {
-    google()
-}
