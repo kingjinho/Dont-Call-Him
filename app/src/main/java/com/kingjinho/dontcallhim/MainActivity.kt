@@ -7,20 +7,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
 import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.contract.ActivityResultContract
-import androidx.compose.foundation.layout.*
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Surface
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
-import com.kingjinho.dontcallhim.ui.theme.DontCallHimTheme
 
 class MainActivity : ComponentActivity() {
 
@@ -49,9 +37,8 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent {
-            DontCallHimApp()
-        }
+        setContentView(R.layout.activity_main)
+
 //        if (!isRedirection()) {
 //            roleAcquire(RoleManager.ROLE_CALL_REDIRECTION)
 //        }
@@ -82,42 +69,5 @@ class MainActivity : ComponentActivity() {
 
     private fun roleAvailable(roleName: String): Boolean {
         return getSystemService(RoleManager::class.java).isRoleAvailable(roleName)
-    }
-}
-
-@Composable
-fun DontCallHimApp() {
-    DontCallHimTheme {
-        val navController = rememberNavController()
-        Surface(
-            modifier = Modifier.fillMaxSize(),
-            color = MaterialTheme.colors.background
-        ) {
-            Scaffold {
-                NavHost(
-                    navController = navController,
-                    startDestination = Main.route,
-                    modifier = Modifier.padding(it)
-                ) {
-                    composable(route = Main.route) {
-                        Main.screen()
-                    }
-                    composable(route = OutgoingCallList.route) {
-                        OutgoingCallList.screen()
-                    }
-                }
-            }
-        }
-    }
-}
-
-@Preview(
-    showSystemUi = true,
-    showBackground = true
-)
-@Composable
-fun DefaultPreview() {
-    DontCallHimTheme {
-
     }
 }
