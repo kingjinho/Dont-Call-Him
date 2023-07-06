@@ -19,12 +19,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.TextUnit
-import androidx.compose.ui.unit.TextUnitType
 import androidx.compose.ui.unit.dp
-import com.kingjinho.dontcallhim.service.OutgoingCallServiceImpl
 import com.kingjinho.dontcallhim.ui.theme.DontCallHimTheme
 
 class MainActivity : ComponentActivity() {
@@ -43,7 +39,9 @@ class MainActivity : ComponentActivity() {
     private val callRedirectionCallback =
         ActivityResultCallback<Int> { resultCode ->
             if (resultCode != Activity.RESULT_OK) {
-                Toast.makeText(this, "기본 앱으로 설정 하셔야 작동합니다.", Toast.LENGTH_LONG).show()
+                Toast.makeText(this,
+                    getString(R.string.msg_error_not_being_default_app),
+                    Toast.LENGTH_LONG).show()
                 return@ActivityResultCallback
             }
         }
@@ -62,7 +60,7 @@ class MainActivity : ComponentActivity() {
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
 
-                        Greeting("제발 술먹고 걔한테 전화좀 하지마.. ")
+                        Greeting(stringResource(id = R.string.msg_do_not_call_him))
 
                         Button(onClick = {
 
@@ -92,7 +90,7 @@ class MainActivity : ComponentActivity() {
                 callRedirectionCallback).launch(null)
         } else {
             Toast.makeText(this,
-                "Redirection call with role in not available",
+                getString(R.string.msg_phoe_does_not_allow_role_required),
                 Toast.LENGTH_SHORT).show()
         }
     }
@@ -117,6 +115,6 @@ fun Greeting(name: String) {
 @Composable
 fun DefaultPreview() {
     DontCallHimTheme {
-        Greeting("제발 술먹고 걔한테 전화좀 하지마..!!")
+        Greeting(stringResource(id = R.string.msg_do_not_call_him))
     }
 }
