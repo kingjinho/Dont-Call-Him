@@ -11,22 +11,21 @@ import androidx.activity.compose.setContent
 import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.contract.ActivityResultContract
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.kingjinho.dontcallhim.ui.theme.DontCallHimTheme
 
 class MainActivity : ComponentActivity() {
 
     private val callRedirectionContract = object : ActivityResultContract<Any, Int>() {
-        override fun createIntent(context: Context, input: Any?): Intent {
+        override fun createIntent(context: Context, input: Any): Intent {
             val roleManager = getSystemService(RoleManager::class.java)
             return roleManager.createRequestRoleIntent(RoleManager.ROLE_CALL_REDIRECTION)
         }
@@ -39,9 +38,11 @@ class MainActivity : ComponentActivity() {
     private val callRedirectionCallback =
         ActivityResultCallback<Int> { resultCode ->
             if (resultCode != Activity.RESULT_OK) {
-                Toast.makeText(this,
+                Toast.makeText(
+                    this,
                     getString(R.string.msg_error_not_being_default_app),
-                    Toast.LENGTH_LONG).show()
+                    Toast.LENGTH_LONG
+                ).show()
                 return@ActivityResultCallback
             }
         }
@@ -49,31 +50,11 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            DontCallHimTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background) {
-                    Column(modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(start = 24.dp),
-                        verticalArrangement = Arrangement.Center,
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-
-                        Greeting(stringResource(id = R.string.msg_do_not_call_him))
-
-                        Button(onClick = {
-
-                        }) {
-                            Text(text = stringResource(id = R.string.msg_add_number_you_do_not_want_to_make))
-                        }
-                    }
-                }
-            }
+            DontCallHimApp()
         }
-        if (!isRedirection()) {
-            roleAcquire(RoleManager.ROLE_CALL_REDIRECTION)
-        }
+//        if (!isRedirection()) {
+//            roleAcquire(RoleManager.ROLE_CALL_REDIRECTION)
+//        }
     }
 
     private fun isRedirection(): Boolean {
@@ -86,12 +67,16 @@ class MainActivity : ComponentActivity() {
 
     private fun roleAcquire(roleName: String) {
         if (roleAvailable(roleName)) {
-            registerForActivityResult(callRedirectionContract,
-                callRedirectionCallback).launch(null)
+            registerForActivityResult(
+                callRedirectionContract,
+                callRedirectionCallback
+            ).launch(null)
         } else {
-            Toast.makeText(this,
+            Toast.makeText(
+                this,
                 getString(R.string.msg_phoe_does_not_allow_role_required),
-                Toast.LENGTH_SHORT).show()
+                Toast.LENGTH_SHORT
+            ).show()
         }
     }
 
@@ -101,11 +86,29 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(name: String) {
-    Text(
-        style = MaterialTheme.typography.h1,
-        text = "$name!"
-    )
+fun DontCallHimApp() {
+    DontCallHimTheme {
+        val navController = rememberNavController()
+        Surface(
+            modifier = Modifier.fillMaxSize(),
+            color = MaterialTheme.colors.background
+        ) {
+            Scaffold {
+                NavHost(
+                    navController = navController,
+                    startDestination = Main.route,
+                    modifier = Modifier.padding(it)
+                ) {
+                    composable(route = Main.route) {
+                        Main.screen()
+                    }
+                    composable(route = OutgoingCallList.route) {
+                        OutgoingCallList.screen()
+                    }
+                }
+            }
+        }
+    }
 }
 
 @Preview(
@@ -115,6 +118,6 @@ fun Greeting(name: String) {
 @Composable
 fun DefaultPreview() {
     DontCallHimTheme {
-        Greeting(stringResource(id = R.string.msg_do_not_call_him))
+
     }
 }
