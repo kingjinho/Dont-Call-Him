@@ -11,6 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DontCallHim"
+        android:name=".DontCallHimApplication"
         tools:targetApi="31">
         <service
             android:name=".service.CallScreeningServiceImpl"
@@ -34,7 +35,6 @@
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:label="@string/app_name"
             android:theme="@style/Theme.DontCallHim">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
