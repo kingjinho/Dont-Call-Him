@@ -10,7 +10,7 @@ import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.contract.ActivityResultContract
 import androidx.appcompat.app.AppCompatActivity
 
-class MainActivity : AppCompatActivity() {
+class DontCallHimActivity : AppCompatActivity() {
 
     private val callRedirectionContract = object : ActivityResultContract<Any, Int>() {
         override fun createIntent(context: Context, input: Any): Intent {
