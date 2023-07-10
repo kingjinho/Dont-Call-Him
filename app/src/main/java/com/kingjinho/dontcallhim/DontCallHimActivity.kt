@@ -12,8 +12,8 @@ import androidx.appcompat.app.AppCompatActivity
 
 class DontCallHimActivity : AppCompatActivity() {
 
-    private val callRedirectionContract = object : ActivityResultContract<Any, Int>() {
-        override fun createIntent(context: Context, input: Any): Intent {
+    private val callRedirectionContract = object : ActivityResultContract<Any?, Int>() {
+        override fun createIntent(context: Context, input: Any?): Intent {
             val roleManager = getSystemService(RoleManager::class.java)
             return roleManager.createRequestRoleIntent(RoleManager.ROLE_CALL_REDIRECTION)
         }
@@ -38,9 +38,9 @@ class DontCallHimActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-//        if (!isRedirection()) {
-//            roleAcquire(RoleManager.ROLE_CALL_REDIRECTION)
-//        }
+        if (!isRedirection()) {
+            roleAcquire(RoleManager.ROLE_CALL_REDIRECTION)
+        }
     }
 
     private fun isRedirection(): Boolean {
