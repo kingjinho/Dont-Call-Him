@@ -39,9 +39,14 @@ class ScreenMain : Fragment() {
                     getString(R.string.msg_error_not_being_default_app),
                     Toast.LENGTH_LONG
                 ).show()
-                return@ActivityResultCallback
+            } else {
+                toAddNumberScreen()
             }
         }
+
+    private val requestRedirectionRole = registerForActivityResult(
+        callRedirectionContract, callRedirectionCallback
+    )
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -60,11 +65,21 @@ class ScreenMain : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.toAddNumber.setOnClickListener {
             if (!hasRedirectionRole()) {
+                Toast.makeText(
+                    requireContext(),
+                    getString(R.string.msg_role_required_to_block_outgoing_call),
+                    Toast.LENGTH_LONG
+                )
+                    .show()
                 requestRedirectionRole()
             } else {
-                findNavController().navigate(R.id.screenAddRemoveNumber)
+                toAddNumberScreen()
             }
         }
+    }
+
+    private fun toAddNumberScreen() {
+        findNavController().navigate(R.id.screenAddRemoveNumber)
     }
 
     private fun hasRedirectionRole(): Boolean {
@@ -74,10 +89,7 @@ class ScreenMain : Fragment() {
 
     private fun requestRedirectionRole() {
         if (roleAvailable()) {
-            registerForActivityResult(
-                callRedirectionContract,
-                callRedirectionCallback
-            ).launch(null)
+            requestRedirectionRole.launch(null)
         } else {
             Toast.makeText(
                 requireContext(),
