@@ -19,6 +19,11 @@ android {
         vectorDrawables {
             useSupportLibrary true
         }
+        kapt {
+            arguments {
+                arg("room.schemaLocation", "$projectDir/schemas")
+            }
+        }
     }
 
     buildTypes {
@@ -67,6 +72,8 @@ dependencies {
 
     // To use the Truth Extension APIs
     androidTestImplementation "androidx.test.ext:truth:1.5.0"
+    testImplementation "com.google.truth:truth:1.1.4"
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.2"
 
     // To use the androidx.test.runner APIs
     androidTestImplementation "androidx.test:runner:1.5.2"
@@ -84,7 +91,11 @@ dependencies {
     implementation 'com.google.dagger:dagger:2.46.1'
     kapt 'com.google.dagger:dagger-compiler:2.46.1'
 
-
+    implementation "androidx.room:room-runtime:2.5.2"
+    implementation "androidx.room:room-ktx:2.5.2"
+    annotationProcessor "androidx.room:room-compiler:2.5.2"
+    kapt "androidx.room:room-compiler:2.5.2"
+    testImplementation "androidx.room:room-testing:2.5.2"
 }
 
 tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
