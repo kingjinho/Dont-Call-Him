@@ -2,8 +2,9 @@
     <string name="app_name">DontCallHim</string>
     <string name="msg_add_number_you_do_not_want_to_make">전화번호 입력하기</string>
     <string name="msg_do_not_call_him">제발 술먹고 걔한테 전화 좀 하지마..!!</string>
-    <string name="msg_error_not_being_default_app">기본 앱으로 설정 하셔야 작동합니다.</string>
+    <string name="msg_error_not_being_default_app">기본 앱으로 설정 하셔야 작동 합니다.</string>
     <string name="msg_phoe_does_not_allow_role_required">해당 기기는 발신 차단을 지원하지 않습니다.</string>
     <string name="text_add">발신제한 번호 추가하기</string>
     <string name="msg_invalid_number">잘못된 번호입니다.</string>
+    <string name="msg_role_required_to_block_outgoing_call">발신 차단을 위해선 권한이 필요 합니다.</string>
 </resources>
