@@ -19,7 +19,7 @@
     <Button
         android:id="@+id/to_add_number"
         android:layout_width="0dp"
-        android:layout_height="48dp"
+        android:layout_height="72dp"
         android:layout_marginHorizontal="24dp"
         android:layout_marginTop="12dp"
         android:text="@string/msg_add_number_you_do_not_want_to_make"
