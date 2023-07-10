@@ -64,7 +64,7 @@ class ScreenAddNumberMvc(
                     outRect.apply {
                         left += 24.dp
                         right += 24.dp
-                        top += 16.dp
+                        top += if(parent.getChildAdapterPosition(view) == 0) 0 else 16.dp
                     }
                 }
             })
