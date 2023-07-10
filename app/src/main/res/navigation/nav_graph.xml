@@ -6,10 +6,10 @@
 
     <fragment
         android:id="@+id/screenMain"
-        android:name="com.kingjinho.dontcallhim.screen.ScreenMain"
+        android:name="com.kingjinho.dontcallhim.screen.main.ScreenMain"
         android:label="ScreenMain" />
     <fragment
         android:id="@+id/screenAddRemoveNumber"
-        android:name="com.kingjinho.dontcallhim.screen.ScreenAddRemoveNumber"
+        android:name="com.kingjinho.dontcallhim.screen.add.ScreenAddNumber"
         android:label="ScreenAddRemoveNumber" />
 </navigation>
