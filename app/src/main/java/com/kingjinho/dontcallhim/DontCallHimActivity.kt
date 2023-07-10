@@ -38,21 +38,17 @@ class DontCallHimActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        if (!isRedirection()) {
-            roleAcquire(RoleManager.ROLE_CALL_REDIRECTION)
+        if (!hasRedirectionRole()) {
+            requestRedirectionRole()
         }
     }
 
-    private fun isRedirection(): Boolean {
-        return isRoleHeldByApp(RoleManager.ROLE_CALL_REDIRECTION)
+    private fun hasRedirectionRole(): Boolean {
+        return getSystemService(RoleManager::class.java).isRoleHeld(RoleManager.ROLE_CALL_REDIRECTION)
     }
 
-    private fun isRoleHeldByApp(role: String): Boolean {
-        return getSystemService(RoleManager::class.java).isRoleHeld(role)
-    }
-
-    private fun roleAcquire(roleName: String) {
-        if (roleAvailable(roleName)) {
+    private fun requestRedirectionRole() {
+        if (roleAvailable()) {
             registerForActivityResult(
                 callRedirectionContract,
                 callRedirectionCallback
@@ -66,7 +62,7 @@ class DontCallHimActivity : AppCompatActivity() {
         }
     }
 
-    private fun roleAvailable(roleName: String): Boolean {
-        return getSystemService(RoleManager::class.java).isRoleAvailable(roleName)
+    private fun roleAvailable(): Boolean {
+        return getSystemService(RoleManager::class.java).isRoleAvailable(RoleManager.ROLE_CALL_REDIRECTION)
     }
 }
