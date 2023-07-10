@@ -22,4 +22,19 @@ class PhoneNumberValidationTest {
         assertThat("011-111-1111".isValidPhoneNumber()).isTrue()
     }
 
+    @Test
+    fun `isValidPhoneNumber()_011111-1111_isInvalidNumber`() {
+        assertThat("011111-1111".isValidPhoneNumber()).isFalse()
+    }
+
+    @Test
+    fun `isValidPhoneNumber()_01-111-1111_isInvalidNumber`() {
+        assertThat("01-111-1111".isValidPhoneNumber()).isFalse()
+    }
+
+    @Test
+    fun `isValidPhoneNumber()_010-111-!@11_isInvalidNumber`() {
+        assertThat("010-111-!@11".isValidPhoneNumber()).isFalse()
+    }
+
 }
