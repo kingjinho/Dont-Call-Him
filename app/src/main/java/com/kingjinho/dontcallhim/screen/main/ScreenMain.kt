@@ -1,4 +1,4 @@
-package com.kingjinho.dontcallhim.screen
+package com.kingjinho.dontcallhim.screen.main
 
 import android.content.Context
 import android.os.Bundle
