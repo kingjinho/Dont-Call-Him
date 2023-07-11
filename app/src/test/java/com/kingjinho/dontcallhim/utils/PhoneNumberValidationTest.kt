@@ -1,4 +1,5 @@
-import com.kingjinho.dontcallhim.utils.isValidPhoneNumber
+package com.kingjinho.dontcallhim.utils
+
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
