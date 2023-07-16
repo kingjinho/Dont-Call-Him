@@ -1,23 +1,26 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 plugins {
-    id 'com.android.application'
-    id 'org.jetbrains.kotlin.android'
-    id 'kotlin-kapt'
+    id("com.android.application")
+    id("org.jetbrains.kotlin.android")
+    id("kotlin-kapt")
 }
 
 android {
-    namespace 'com.kingjinho.dontcallhim'
-    compileSdk 33
+
+    namespace = "com.kingjinho.dontcallhim"
+    compileSdk = 33
 
     defaultConfig {
-        applicationId "com.kingjinho.dontcallhim"
-        minSdk 29
-        targetSdk 33
-        versionCode 1
-        versionName "1.0"
+        applicationId = "com.kingjinho.dontcallhim"
+        minSdk = 29
+        targetSdk = 33
+        versionCode = 1
+        versionName = "1.0"
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
-            useSupportLibrary true
+            useSupportLibrary = true
         }
         kapt {
             arguments {
@@ -28,94 +31,100 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            isMinifyEnabled = false
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = "1.8"
     }
     packagingOptions {
         resources {
-            excludes += '/META-INF/{AL2.0,LGPL2.1}'
+            excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
     buildFeatures {
-        viewBinding true
+        viewBinding = true
     }
 
     testOptions.unitTests {
-        includeAndroidResources true
-        returnDefaultValues true
+        isIncludeAndroidResources = true
+        isReturnDefaultValues = true
     }
 }
 
 dependencies {
 
-    implementation "androidx.appcompat:appcompat:1.6.1"
-    implementation "androidx.core:core-ktx:1.10.1"
-    implementation "com.google.android.material:material:1.9.0"
+    implementation(libs.appcompat)
+    implementation(libs.core.ktx)
+    implementation(libs.material)
 
     // Testing dependencies
-    androidTestImplementation "androidx.arch.core:core-testing:2.2.0"
-    testImplementation "androidx.arch.core:core-testing:2.2.0"
-    androidTestImplementation "androidx.test.espresso:espresso-contrib:3.5.1"
-    androidTestImplementation "androidx.test.espresso:espresso-core:3.5.1"
-    implementation "androidx.test.espresso:espresso-idling-resource:3.5.1"
+    androidTestImplementation(libs.arch.core.testing)
+    testImplementation(libs.arch.core.testing)
+
+    androidTestImplementation(libs.espresso.contrib)
+    androidTestImplementation(libs.espresso.core)
+    implementation(libs.espresso.idling.resource)
 
     // To use the androidx.test.core APIs
-    androidTestImplementation "androidx.test:core:1.5.0"
-    testImplementation "androidx.test:core:1.5.0"
+    androidTestImplementation(libs.test.core)
+    testImplementation(libs.test.core)
     // Kotlin extensions for androidx.test.core
-    androidTestImplementation "androidx.test:core-ktx:1.5.0"
-    testImplementation "androidx.test:core-ktx:1.5.0"
+    androidTestImplementation(libs.test.core.ktx)
+    testImplementation(libs.test.core.ktx)
 
-    testImplementation "org.robolectric:robolectric:4.9"
+    testImplementation(libs.robolectric)
 
     // To use the JUnit Extension APIs
-    androidTestImplementation "androidx.test.ext:junit:1.1.5"
+    androidTestImplementation(libs.junit)
     // Kotlin extensions for androidx.test.ext.junit
-    testImplementation "androidx.test.ext:junit-ktx:1.1.5"
+    testImplementation(libs.junit.ktx)
 
     // To use the Truth Extension APIs
-    androidTestImplementation "androidx.test.ext:truth:1.5.0"
-    testImplementation "com.google.truth:truth:1.1.4"
-    androidTestImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.2"
-    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.2"
+    androidTestImplementation(libs.truth)
+    testImplementation(libs.google.truth)
+    androidTestImplementation(libs.coroutine.testing)
+    testImplementation(libs.coroutine.testing)
 
     // To use the androidx.test.runner APIs
-    androidTestImplementation "androidx.test:runner:1.5.2"
+    androidTestImplementation(libs.testRunner)
 
     // To use android test orchestrator
-    androidTestUtil "androidx.test:orchestrator:1.4.2"
+    androidTestUtil(libs.orchestrator)
 
-    debugImplementation "androidx.fragment:fragment-testing:1.6.0"
+    debugImplementation(libs.fragment.testing)
 
-    implementation "androidx.navigation:navigation-fragment-ktx:2.6.0"
-    implementation "androidx.navigation:navigation-ui-ktx:2.6.0"
+    implementation(libs.navgitation.fragment.ktx)
+    implementation(libs.navgitation.ui.ktx)
+    androidTestImplementation(libs.navgitation.testing)
 
-    androidTestImplementation "androidx.navigation:navigation-testing:2.6.0"
+    //dagger
+    implementation(libs.dagger)
+    kapt(libs.dagger.compiler)
 
-    implementation 'com.google.dagger:dagger:2.46.1'
-    kapt 'com.google.dagger:dagger-compiler:2.46.1'
-
-    implementation "androidx.room:room-runtime:2.5.2"
-    implementation "androidx.room:room-ktx:2.5.2"
-    annotationProcessor "androidx.room:room-compiler:2.5.2"
-    kapt "androidx.room:room-compiler:2.5.2"
-    testImplementation "androidx.room:room-testing:2.5.2"
+    //room
+    implementation(libs.room.runtime)
+    implementation(libs.room.ktx)
+    annotationProcessor(libs.room.compiler)
+    kapt(libs.room.compiler)
+    testImplementation(libs.room.testing)
 }
 
-tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
+
+tasks.withType(KotlinCompile::class.java).configureEach {
     kotlinOptions {
         // Treat all Kotlin warnings as errors
         allWarningsAsErrors = true
 
-        freeCompilerArgs += '-opt-in=kotlin.RequiresOptIn'
+        freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
 
         // Set JVM target to 1.8
         jvmTarget = "1.8"
