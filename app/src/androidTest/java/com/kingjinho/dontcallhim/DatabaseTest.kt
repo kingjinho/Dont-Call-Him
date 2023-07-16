@@ -2,7 +2,6 @@ package com.kingjinho.dontcallhim
 
 import android.content.Context
 import androidx.room.Room
-import androidx.room.RoomDatabase
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.google.common.truth.Truth.assertThat
@@ -10,7 +9,7 @@ import com.kingjinho.dontcallhim.db.AppDatabase
 import com.kingjinho.dontcallhim.db.dao.PhoneNumberDao
 import com.kingjinho.dontcallhim.db.entity.PhoneNumber
 import com.kingjinho.dontcallhim.utils.isValidPhoneNumber
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.runTest
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
@@ -29,7 +28,8 @@ class DatabaseTest {
         val context = ApplicationProvider.getApplicationContext<Context>()
         db = Room.inMemoryDatabaseBuilder(
             context, AppDatabase::class.java
-        ).build()
+        ).allowMainThreadQueries()
+            .build()
         dao = db.phoneNumberDao()
     }
 
@@ -41,30 +41,26 @@ class DatabaseTest {
 
     @Test
     @Throws(Exception::class)
-    fun `addPhoneNumber_010-3333-3333_isAddedSuccessfully`() {
-        runBlocking {
-            val user = PhoneNumber("010-3333-3333")
-            assertThat(user.number.isValidPhoneNumber()).isTrue()
-            dao.insertNumber(user)
+    fun `addPhoneNumber_010-3333-3333_isAddedSuccessfully`() = runTest {
+        val user = PhoneNumber("010-3333-3333")
+        assertThat(user.number.isValidPhoneNumber()).isTrue()
+        dao.insertNumber(user)
 
-            val byNumber = dao.getExistingData("010-3333-3333")
+        val byNumber = dao.getExistingData("010-3333-3333")
 
-            assertThat(byNumber).isTrue()
-        }
+        assertThat(byNumber).isTrue()
     }
 
     @Test
     @Throws(Exception::class)
-    fun `addPhoneNumber_010-333-333_isNotAddedSuccessfully`() {
-        runBlocking {
-            val user = PhoneNumber("010-3333-333")
-            assertThat(user.number.isValidPhoneNumber()).isTrue()
-            dao.insertNumber(user)
+    fun `addPhoneNumber_010-333-333_isNotAddedSuccessfully`() = runTest {
+        val user = PhoneNumber("010-3333-333")
+        assertThat(user.number.isValidPhoneNumber()).isTrue()
+        dao.insertNumber(user)
 
-            val byNumber = dao.getExistingData("010-3333-3333")
+        val byNumber = dao.getExistingData("010-3333-3333")
 
-            assertThat(byNumber).isTrue()
-        }
+        assertThat(byNumber).isTrue()
     }
 
 }
