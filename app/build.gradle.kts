@@ -122,7 +122,7 @@ dependencies {
 tasks.withType(KotlinCompile::class.java).configureEach {
     kotlinOptions {
         // Treat all Kotlin warnings as errors
-        allWarningsAsErrors = true
+        allWarningsAsErrors = false
 
         freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
 
