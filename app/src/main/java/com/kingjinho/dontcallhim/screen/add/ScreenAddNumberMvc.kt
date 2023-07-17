@@ -13,6 +13,7 @@ import com.kingjinho.dontcallhim.databinding.ScreenAddNumberBinding
 import com.kingjinho.dontcallhim.db.entity.PhoneNumber
 import com.kingjinho.dontcallhim.recyclerview.PhoneNumbersAdapter
 import com.kingjinho.dontcallhim.utils.dp
+import java.util.Locale
 
 class ScreenAddNumberMvc(
     layoutInflater: LayoutInflater,
@@ -72,7 +73,9 @@ class ScreenAddNumberMvc(
     }
 
     private fun addTextWatcher() {
-        binding.numberToAdd.addTextChangedListener(PhoneNumberFormattingTextWatcher())
+        binding.numberToAdd.addTextChangedListener(PhoneNumberFormattingTextWatcher(
+            Locale.KOREA.country
+        ))
     }
 
     private fun setAddNumberButtonClickListener() {
