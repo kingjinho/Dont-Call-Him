@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 class OutgoingCallServiceImpl : CallRedirectionService() {
 
     private val dbInstance by lazy {
-        (application as DontCallHimApplication).dbInstance
+        (application as DontCallHimApplication).appComponent.getDatabase()
     }
 
     override fun onPlaceCall(
