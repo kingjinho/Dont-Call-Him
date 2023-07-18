@@ -6,29 +6,36 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.kingjinho.dontcallhim.R
-import com.kingjinho.dontcallhim.utils.getAppComponent
+import com.kingjinho.dontcallhim.screen.BaseScreen
+import com.kingjinho.dontcallhim.screen.viewfactory.BaseViewMvcFactory
+import com.kingjinho.dontcallhim.usecase.add.AddNumberUseCase
+import com.kingjinho.dontcallhim.usecase.fetch.FetchNumbersUseCase
 import com.kingjinho.dontcallhim.viewmodels.OutgoingCallVM
 import com.kingjinho.dontcallhim.viewmodels.OutgoingCallVMFactory
 import com.kingjinho.dontcallhim.viewmodels.Result
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class ScreenAddNumber : Fragment(), ScreenAddNumberMvc.Listener {
+class ScreenAddNumber : BaseScreen(), ScreenAddNumberMvc.Listener {
+
+    @Inject lateinit var viewMvcFactory: BaseViewMvcFactory
+    @Inject lateinit var addNumberUseCase: AddNumberUseCase
+    @Inject lateinit var fetchNumberUseCase: FetchNumbersUseCase
 
     private lateinit var viewMvc: ScreenAddNumberMvc
-    private var fetchAddNumbersJob: Job? = null
 
     private val addNumberVM by viewModels<OutgoingCallVM> {
         OutgoingCallVMFactory(
-            addNumberUseCase = getAppComponent().newPresentationComponent().getAddNumberUseCase(),
-            fetchNumbersUseCase = getAppComponent().newPresentationComponent().getFetchNumbersUseCase()
+            addNumberUseCase = addNumberUseCase,
+            fetchNumbersUseCase = fetchNumberUseCase
         )
-     }
+    }
+    private var fetchAddNumbersJob: Job? = null
 
     override fun setOnAddNumberClickListener() {
         val number = viewMvc.numberToAdd.text.toString()
@@ -45,6 +52,7 @@ class ScreenAddNumber : Fragment(), ScreenAddNumberMvc.Listener {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
+        injector.inject(this)
     }
 
     override fun onCreateView(
@@ -52,7 +60,7 @@ class ScreenAddNumber : Fragment(), ScreenAddNumberMvc.Listener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        viewMvc = ScreenAddNumberMvc(inflater, container)
+        viewMvc = viewMvcFactory.newAddNumberMvc(container)
         viewMvc.addButtonClickListener(this)
         return viewMvc.rootView
     }
