@@ -9,7 +9,10 @@ class DontCallHimActivity : AppCompatActivity() {
 
     val activityComponent: ActivityComponent by lazy {
         (application as DontCallHimApplication).appComponent
-            .newActivityComponent(ActivityModule(this))
+            .newActivityComponentBuilder()
+            .activity(this)
+            .activityModule(ActivityModule)
+            .build()
     }
 
 

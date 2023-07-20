@@ -9,8 +9,10 @@ import com.kingjinho.dontcallhim.di.application.DaggerAppComponent
 class DontCallHimApplication : Application() {
 
     val appComponent: AppComponent by lazy {
-        DaggerAppComponent.builder()
-            .appModule(AppModule(this))
+        DaggerAppComponent
+            .builder()
+            .application(this)
+            .appModule(AppModule)
             .build()
     }
 
