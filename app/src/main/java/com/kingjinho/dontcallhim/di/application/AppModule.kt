@@ -7,14 +7,11 @@ import dagger.Module
 import dagger.Provides
 
 @Module
-class AppModule(private val application: Application) {
-
-    @Provides
-    fun getApplication() = application
+object AppModule {
 
     @Provides
     @AppScope
-    fun getDatabase(application: Application): AppDatabase =
+    fun getDatabase(application: Application) =
         AppDatabase.getInstance(application.applicationContext)
 
 }
