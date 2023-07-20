@@ -6,18 +6,20 @@ import com.kingjinho.dontcallhim.usecase.add.AddNumberUseCase
 import com.kingjinho.dontcallhim.usecase.fetch.FetchNumbersUseCase
 import com.kingjinho.dontcallhim.utils.isValidPhoneNumber
 import kotlinx.coroutines.flow.flow
+import javax.inject.Inject
+import javax.inject.Provider
 
-class OutgoingCallVMFactory(
-    private val addNumberUseCase: AddNumberUseCase,
-    private val fetchNumbersUseCase: FetchNumbersUseCase
+class OutgoingCallVMFactory @Inject constructor(
+    private val addNumberUseCaseProvider: Provider<AddNumberUseCase>,
+    private val fetchNumbersUseCaseProvider: Provider<FetchNumbersUseCase>
 ) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         @Suppress("UNCHECKED_CAST")
         return if (modelClass.isAssignableFrom(OutgoingCallVM::class.java)) {
             OutgoingCallVM(
-                addNumberUseCase = addNumberUseCase,
-                fetchNumbersUseCase = fetchNumbersUseCase
+                addNumberUseCase = addNumberUseCaseProvider.get(),
+                fetchNumbersUseCase = fetchNumbersUseCaseProvider.get()
             ) as T
         } else {
             throw IllegalArgumentException("modelClass is not assignable: ${modelClass.canonicalName}")
@@ -32,7 +34,7 @@ class OutgoingCallVM(
 ) : ViewModel() {
 
     fun addNumber(number: String) = flow {
-        if(!number.isValidPhoneNumber()) {
+        if (!number.isValidPhoneNumber()) {
             emit(Result.Failure)
         } else {
             addNumberUseCase.invoke(number.replace("-", ""))
@@ -44,6 +46,6 @@ class OutgoingCallVM(
 }
 
 sealed class Result {
-    object Success: Result()
-    object Failure: Result()
+    object Success : Result()
+    object Failure : Result()
 }

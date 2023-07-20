@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.kingjinho.dontcallhim.R
 import com.kingjinho.dontcallhim.screen.BaseScreen
@@ -23,18 +23,21 @@ import javax.inject.Inject
 
 class ScreenAddNumber : BaseScreen(), ScreenAddNumberMvc.Listener {
 
-    @Inject lateinit var viewMvcFactory: BaseViewMvcFactory
-    @Inject lateinit var addNumberUseCase: AddNumberUseCase
-    @Inject lateinit var fetchNumberUseCase: FetchNumbersUseCase
+    @Inject
+    lateinit var viewMvcFactory: BaseViewMvcFactory
+    @Inject
+    lateinit var addNumberUseCase: AddNumberUseCase
+    @Inject
+    lateinit var fetchNumberUseCase: FetchNumbersUseCase
 
     private lateinit var viewMvc: ScreenAddNumberMvc
 
-    private val addNumberVM by viewModels<OutgoingCallVM> {
-        OutgoingCallVMFactory(
-            addNumberUseCase = addNumberUseCase,
-            fetchNumbersUseCase = fetchNumberUseCase
-        )
+    @Inject
+    lateinit var addNumberVMFactory: OutgoingCallVMFactory
+    private val addNumberVM: OutgoingCallVM by lazy {
+        ViewModelProvider(this, addNumberVMFactory)[OutgoingCallVM::class.java]
     }
+
     private var fetchAddNumbersJob: Job? = null
 
     override fun setOnAddNumberClickListener() {
