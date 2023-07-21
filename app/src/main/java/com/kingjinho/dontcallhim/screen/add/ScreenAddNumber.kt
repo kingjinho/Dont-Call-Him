@@ -14,8 +14,8 @@ import com.kingjinho.dontcallhim.screen.viewfactory.BaseViewMvcFactory
 import com.kingjinho.dontcallhim.usecase.add.AddNumberUseCase
 import com.kingjinho.dontcallhim.usecase.fetch.FetchNumbersUseCase
 import com.kingjinho.dontcallhim.viewmodels.OutgoingCallVM
-import com.kingjinho.dontcallhim.viewmodels.OutgoingCallVMFactory
 import com.kingjinho.dontcallhim.viewmodels.Result
+import com.kingjinho.dontcallhim.viewmodels.ViewModelFactory
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -23,17 +23,14 @@ import javax.inject.Inject
 
 class ScreenAddNumber : BaseScreen(), ScreenAddNumberMvc.Listener {
 
-    @Inject
-    lateinit var viewMvcFactory: BaseViewMvcFactory
-    @Inject
-    lateinit var addNumberUseCase: AddNumberUseCase
-    @Inject
-    lateinit var fetchNumberUseCase: FetchNumbersUseCase
+    @Inject lateinit var viewMvcFactory: BaseViewMvcFactory
+    @Inject lateinit var addNumberUseCase: AddNumberUseCase
+    @Inject lateinit var fetchNumberUseCase: FetchNumbersUseCase
 
     private lateinit var viewMvc: ScreenAddNumberMvc
 
     @Inject
-    lateinit var addNumberVMFactory: OutgoingCallVMFactory
+    lateinit var addNumberVMFactory: ViewModelFactory
     private val addNumberVM: OutgoingCallVM by lazy {
         ViewModelProvider(this, addNumberVMFactory)[OutgoingCallVM::class.java]
     }
