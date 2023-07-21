@@ -1,10 +1,11 @@
 package com.kingjinho.dontcallhim.di.presentation
 
+import androidx.lifecycle.ViewModel
 import com.kingjinho.dontcallhim.screen.add.ScreenAddNumber
 import dagger.Subcomponent
 
 
-@Subcomponent(modules = [PresentationModule::class])
+@Subcomponent(modules = [PresentationModule::class, ViewModelsModule::class])
 interface PresentationComponent {
 
     fun inject(fragment: ScreenAddNumber)
