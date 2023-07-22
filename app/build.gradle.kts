@@ -116,6 +116,18 @@ dependencies {
     annotationProcessor(libs.room.compiler)
     kapt(libs.room.compiler)
     testImplementation(libs.room.testing)
+
+    //hilt
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.compipler)
+
+    // Hilt for instrumentation tests
+    androidTestImplementation(libs.hilt.testing)
+    kaptAndroidTest(libs.hilt.compipler)
+
+    // Hilt for local unit tests
+    testImplementation(libs.hilt.testing)
+    kaptTest(libs.hilt.compipler)
 }
 
 

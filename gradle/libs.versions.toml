@@ -6,6 +6,7 @@ material = "1.9.0"
 navigation = "2.6.0"
 dagger = "2.46.1"
 room = "2.5.2"
+hilt= "2.47"
 
 junit = "1.1.5"
 fragmentTesting = "1.6.0"
@@ -57,5 +58,8 @@ robolectric = { group = "org.robolectric", name = "robolectric", version.ref = "
 test-core = { group = "androidx.test", name = "core", version.ref = "coreTesting" }
 test-core-ktx = { group = "androidx.test", name = "core-ktx", version.ref = "coreTesting" }
 
+hilt-android = {group = "com.google.dagger", name = "hilt-android", version.ref = "hilt"}
+hilt-compipler = {group = "com.google.dagger", name = "hilt-compiler", version.ref = "hilt"}
+hilt-testing = {group = "com.google.dagger", name = "hilt-android-testing", version.ref = "hilt"}
 
 [plugins]
