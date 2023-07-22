@@ -13,16 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+plugins {
+    `kotlin-dsl`
+    alias(libs.plugins.android.application) apply false
+    alias(libs.plugins.hilt) apply false
+    alias(libs.plugins.kotlin.jvm) apply false
+    alias(libs.plugins.kotlin.kapt) apply false
+    alias(libs.plugins.kotlin.android) apply false
+}
 
 buildscript {
     repositories {
         google()
         mavenCentral()
-    }
-
-    dependencies {
-        classpath("com.android.tools.build:gradle:8.0.2")
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.20")
     }
 }
 

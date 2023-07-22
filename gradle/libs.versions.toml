@@ -1,4 +1,8 @@
 [versions]
+
+androidGradlePlugin = "8.0.2"
+kotlin = "1.8.20"
+
 appcompat = "1.6.1"
 core = "1.10.1"
 material = "1.9.0"
@@ -6,7 +10,7 @@ material = "1.9.0"
 navigation = "2.6.0"
 dagger = "2.46.1"
 room = "2.5.2"
-hilt= "2.47"
+hilt = "2.47"
 
 junit = "1.1.5"
 fragmentTesting = "1.6.0"
@@ -58,8 +62,18 @@ robolectric = { group = "org.robolectric", name = "robolectric", version.ref = "
 test-core = { group = "androidx.test", name = "core", version.ref = "coreTesting" }
 test-core-ktx = { group = "androidx.test", name = "core-ktx", version.ref = "coreTesting" }
 
-hilt-android = {group = "com.google.dagger", name = "hilt-android", version.ref = "hilt"}
-hilt-compipler = {group = "com.google.dagger", name = "hilt-compiler", version.ref = "hilt"}
-hilt-testing = {group = "com.google.dagger", name = "hilt-android-testing", version.ref = "hilt"}
+hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
+hilt-compipler = { group = "com.google.dagger", name = "hilt-compiler", version.ref = "hilt" }
+hilt-testing = { group = "com.google.dagger", name = "hilt-android-testing", version.ref = "hilt" }
+
+android-gradle-plugin = { group = "com.android.tools.build", name = "gradle", version.ref = "androidGradlePlugin" }
+kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
+
 
 [plugins]
+
+android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
+hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
