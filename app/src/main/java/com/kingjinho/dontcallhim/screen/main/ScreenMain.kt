@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.kingjinho.dontcallhim.R
 import com.kingjinho.dontcallhim.databinding.ScreenMainBinding
+import dagger.hilt.android.AndroidEntryPoint
 
 class ScreenMain : Fragment() {
 

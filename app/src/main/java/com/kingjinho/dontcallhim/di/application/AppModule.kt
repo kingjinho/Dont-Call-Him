@@ -2,11 +2,13 @@ package com.kingjinho.dontcallhim.di.application
 
 import android.app.Application
 import com.kingjinho.dontcallhim.db.AppDatabase
-import com.kingjinho.dontcallhim.di.scope.AppScope
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 
 @Module
+@InstallIn(value = [SingletonComponent::class])
 object AppModule {
 
     @Provides

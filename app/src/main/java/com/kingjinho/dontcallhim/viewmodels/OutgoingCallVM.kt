@@ -4,9 +4,11 @@ import androidx.lifecycle.ViewModel
 import com.kingjinho.dontcallhim.usecase.add.AddNumberUseCase
 import com.kingjinho.dontcallhim.usecase.fetch.FetchNumbersUseCase
 import com.kingjinho.dontcallhim.utils.isValidPhoneNumber
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
+@HiltViewModel
 class OutgoingCallVM @Inject constructor(
     private val addNumberUseCase: AddNumberUseCase,
     private val fetchNumbersUseCase: FetchNumbersUseCase

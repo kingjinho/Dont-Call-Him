@@ -6,34 +6,25 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.kingjinho.dontcallhim.R
-import com.kingjinho.dontcallhim.screen.BaseScreen
 import com.kingjinho.dontcallhim.screen.viewfactory.BaseViewMvcFactory
-import com.kingjinho.dontcallhim.usecase.add.AddNumberUseCase
-import com.kingjinho.dontcallhim.usecase.fetch.FetchNumbersUseCase
 import com.kingjinho.dontcallhim.viewmodels.OutgoingCallVM
 import com.kingjinho.dontcallhim.viewmodels.Result
-import com.kingjinho.dontcallhim.viewmodels.ViewModelFactory
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class ScreenAddNumber : BaseScreen(), ScreenAddNumberMvc.Listener {
+@AndroidEntryPoint
+class ScreenAddNumber : Fragment(), ScreenAddNumberMvc.Listener {
 
     @Inject lateinit var viewMvcFactory: BaseViewMvcFactory
-    @Inject lateinit var addNumberUseCase: AddNumberUseCase
-    @Inject lateinit var fetchNumberUseCase: FetchNumbersUseCase
-
+    private val addNumberVM: OutgoingCallVM by viewModels()
     private lateinit var viewMvc: ScreenAddNumberMvc
-
-    @Inject
-    lateinit var addNumberVMFactory: ViewModelFactory
-    private val addNumberVM: OutgoingCallVM by lazy {
-        ViewModelProvider(this, addNumberVMFactory)[OutgoingCallVM::class.java]
-    }
 
     private var fetchAddNumbersJob: Job? = null
 
@@ -52,7 +43,6 @@ class ScreenAddNumber : BaseScreen(), ScreenAddNumberMvc.Listener {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        injector.inject(this)
     }
 
     override fun onCreateView(

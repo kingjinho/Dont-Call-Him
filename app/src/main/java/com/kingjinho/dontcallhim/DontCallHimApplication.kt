@@ -1,19 +1,7 @@
 package com.kingjinho.dontcallhim
 
 import android.app.Application
-import com.kingjinho.dontcallhim.db.AppDatabase
-import com.kingjinho.dontcallhim.di.application.AppComponent
-import com.kingjinho.dontcallhim.di.application.AppModule
-import com.kingjinho.dontcallhim.di.application.DaggerAppComponent
+import dagger.hilt.android.HiltAndroidApp
 
-class DontCallHimApplication : Application() {
-
-    val appComponent: AppComponent by lazy {
-        DaggerAppComponent
-            .builder()
-            .application(this)
-            .appModule(AppModule)
-            .build()
-    }
-
-}
+@HiltAndroidApp
+class DontCallHimApplication : Application()
