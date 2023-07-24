@@ -68,6 +68,8 @@ dependencies {
     implementation(libs.appcompat)
     implementation(libs.core.ktx)
     implementation(libs.material)
+    implementation(libs.coroutine)
+
 
     // To use android test orchestrator
     androidTestUtil(libs.orchestrator)

@@ -15,7 +15,7 @@ hilt = "2.47"
 junit = "1.1.5"
 fragmentTesting = "1.6.0"
 archCoreTesting = "2.2.0"
-coroutineTesting = "1.7.2"
+coroutine = "1.7.2"
 testRunner = "1.5.2"
 truth = "1.5.0"
 orchestrator = "1.4.2"
@@ -45,10 +45,12 @@ room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
 room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
 room-testing = { group = "androidx.room", name = "room-testing", version.ref = "room" }
 
+coroutine = {group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "coroutine"}
+
 fragment-testing = { group = "androidx.fragment", name = "fragment-testing", version.ref = "fragmentTesting" }
 arch-core-testing = { group = "androidx.arch.core", name = "core-testing", version.ref = "archCoreTesting" }
 orchestrator = { group = "androidx.test", name = "orchestrator", version.ref = "orchestrator" }
-coroutine-testing = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "coroutineTesting" }
+coroutine-testing = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "coroutine" }
 google-truth = { group = "com.google.truth", name = "truth", version.ref = "googleTruth" }
 truth = { group = "androidx.test.ext", name = "truth", version.ref = "truth" }
 testRunner = { group = "androidx.test", name = "runner", version.ref = "testRunner" }
