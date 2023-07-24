@@ -21,4 +21,8 @@ class FakeDao : PhoneNumberDao {
         emit(database.toList())
     }
 
+    fun clearAll() {
+        database.clear()
+    }
+
 }

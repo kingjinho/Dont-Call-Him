@@ -9,4 +9,8 @@ class FakeAddNumberRepository(private val database: FakeDatabase) {
         database.dao.insertNumber(PhoneNumber(number = number))
     }
 
+    suspend fun numberExists(number: String): Boolean {
+        return database.dao.getExistingData(number)
+    }
+
 }
