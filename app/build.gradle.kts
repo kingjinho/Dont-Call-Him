@@ -69,37 +69,6 @@ dependencies {
     implementation(libs.core.ktx)
     implementation(libs.material)
 
-    // Testing dependencies
-    androidTestImplementation(libs.arch.core.testing)
-    testImplementation(libs.arch.core.testing)
-
-    androidTestImplementation(libs.espresso.contrib)
-    androidTestImplementation(libs.espresso.core)
-    implementation(libs.espresso.idling.resource)
-
-    // To use the androidx.test.core APIs
-    androidTestImplementation(libs.test.core)
-    testImplementation(libs.test.core)
-    // Kotlin extensions for androidx.test.core
-    androidTestImplementation(libs.test.core.ktx)
-    testImplementation(libs.test.core.ktx)
-
-    testImplementation(libs.robolectric)
-
-    // To use the JUnit Extension APIs
-    androidTestImplementation(libs.junit)
-    // Kotlin extensions for androidx.test.ext.junit
-    testImplementation(libs.junit.ktx)
-
-    // To use the Truth Extension APIs
-    androidTestImplementation(libs.truth)
-    testImplementation(libs.google.truth)
-    androidTestImplementation(libs.coroutine.testing)
-    testImplementation(libs.coroutine.testing)
-
-    // To use the androidx.test.runner APIs
-    androidTestImplementation(libs.testRunner)
-
     // To use android test orchestrator
     androidTestUtil(libs.orchestrator)
 
@@ -107,7 +76,6 @@ dependencies {
 
     implementation(libs.navgitation.fragment.ktx)
     implementation(libs.navgitation.ui.ktx)
-    androidTestImplementation(libs.navgitation.testing)
 
     //dagger
     implementation(libs.dagger)
@@ -118,19 +86,38 @@ dependencies {
     implementation(libs.room.ktx)
     annotationProcessor(libs.room.compiler)
     kapt(libs.room.compiler)
-    testImplementation(libs.room.testing)
 
     //hilt
     implementation(libs.hilt.android)
     kapt(libs.hilt.compipler)
-
-    // Hilt for instrumentation tests
-    androidTestImplementation(libs.hilt.testing)
     kaptAndroidTest(libs.hilt.compipler)
-
-    // Hilt for local unit tests
-    testImplementation(libs.hilt.testing)
     kaptTest(libs.hilt.compipler)
+
+    implementation(libs.espresso.idling.resource)
+
+    androidTestImplementation(libs.arch.core.testing)
+    androidTestImplementation(libs.espresso.contrib)
+    androidTestImplementation(libs.espresso.core)
+    androidTestImplementation(libs.test.core)
+    androidTestImplementation(libs.test.core.ktx)
+    androidTestImplementation(libs.junit)
+    androidTestImplementation(libs.truth)
+    androidTestImplementation(libs.coroutine.testing)
+    androidTestImplementation(libs.testRunner)
+    androidTestImplementation(libs.navgitation.testing)
+    androidTestImplementation(libs.hilt.testing)
+    androidTestImplementation(libs.room.testing)
+
+
+    testImplementation(libs.arch.core.testing)
+    testImplementation(libs.test.core)
+    testImplementation(libs.test.core.ktx)
+    testImplementation(libs.robolectric)
+    testImplementation(libs.junit.ktx)
+    testImplementation(libs.google.truth)
+    testImplementation(libs.coroutine.testing)
+    testImplementation(libs.hilt.testing)
+    testImplementation(libs.room.testing)
 }
 
 
