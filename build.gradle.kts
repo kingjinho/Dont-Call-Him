@@ -21,17 +21,3 @@ plugins {
     alias(libs.plugins.kotlin.android) apply false
 }
 
-buildscript {
-    repositories {
-        google()
-        mavenCentral()
-    }
-}
-
-subprojects {
-    repositories {
-        google()
-        mavenCentral()
-    }
-}
-
