@@ -20,7 +20,7 @@ android {
         versionCode = 1
         versionName = "1.0"
 
-        testInstrumentationRunner = "com.kingjinho.dontcallhim.HiltTestRunner"
+        testInstrumentationRunner = "com.kingjinho.dontcallhim.runner.HiltTestRunner"
         vectorDrawables {
             useSupportLibrary = true
         }
