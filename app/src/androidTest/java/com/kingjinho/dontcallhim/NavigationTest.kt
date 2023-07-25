@@ -10,12 +10,25 @@ import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.google.common.truth.Truth.assertThat
 import com.kingjinho.dontcallhim.screen.main.ScreenMain
+import dagger.hilt.android.testing.HiltAndroidRule
+import dagger.hilt.android.testing.HiltAndroidTest
+import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
 
+@HiltAndroidTest
 @RunWith(AndroidJUnit4::class)
 class NavigationTest {
+
+    @get:Rule
+    var hiltRule = HiltAndroidRule(this)
+
+    @Before
+    fun setup() {
+        hiltRule.inject()
+    }
 
     @Test
     fun testNavigationToAddRemoveNumberScreen() {
