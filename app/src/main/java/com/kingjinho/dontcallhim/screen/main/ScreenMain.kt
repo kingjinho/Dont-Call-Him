@@ -4,105 +4,109 @@ import android.app.Activity
 import android.app.role.RoleManager
 import android.content.Context
 import android.content.Intent
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.content.res.Configuration
 import android.widget.Toast
+import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.contract.ActivityResultContract
-import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
+import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.kingjinho.dontcallhim.R
-import com.kingjinho.dontcallhim.databinding.ScreenMainBinding
-import dagger.hilt.android.AndroidEntryPoint
 
-class ScreenMain : Fragment() {
+@Composable
+fun MainScreen(onAddNumberClick: () -> Unit) {
+    Column {
+        val context = LocalContext.current
 
-    private lateinit var binding: ScreenMainBinding
+        val callRedirectionContract = object : ActivityResultContract<Any?, Int>() {
+            override fun createIntent(context: Context, input: Any?): Intent {
+                val roleManager = context.getSystemService(RoleManager::class.java)
+                return roleManager.createRequestRoleIntent(RoleManager.ROLE_CALL_REDIRECTION)
+            }
 
-    private val callRedirectionContract = object : ActivityResultContract<Any?, Int>() {
-        override fun createIntent(context: Context, input: Any?): Intent {
-            val roleManager = requireContext().getSystemService(RoleManager::class.java)
-            return roleManager.createRequestRoleIntent(RoleManager.ROLE_CALL_REDIRECTION)
-        }
-
-        override fun parseResult(resultCode: Int, intent: Intent?): Int {
-            return resultCode
-        }
-    }
-
-    private val callRedirectionCallback =
-        ActivityResultCallback<Int> { resultCode ->
-            if (resultCode != Activity.RESULT_OK) {
-                Toast.makeText(
-                    requireContext(),
-                    getString(R.string.msg_error_not_being_default_app),
-                    Toast.LENGTH_LONG
-                ).show()
-            } else {
-                toAddNumberScreen()
+            override fun parseResult(resultCode: Int, intent: Intent?): Int {
+                return resultCode
             }
         }
 
-    private val requestRedirectionRole = registerForActivityResult(
-        callRedirectionContract, callRedirectionCallback
-    )
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = ScreenMainBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        binding.toAddNumber.setOnClickListener {
-            if (!hasRedirectionRole()) {
-                Toast.makeText(
-                    requireContext(),
-                    getString(R.string.msg_role_required_to_block_outgoing_call),
-                    Toast.LENGTH_LONG
-                )
-                    .show()
-                requestRedirectionRole()
-            } else {
-                toAddNumberScreen()
+        val callRedirectionCallback =
+            ActivityResultCallback<Int> { resultCode ->
+                if (resultCode != Activity.RESULT_OK) {
+                    Toast.makeText(
+                        context,
+                        context.getString(R.string.msg_error_not_being_default_app),
+                        Toast.LENGTH_LONG
+                    ).show()
+                } else {
+                    onAddNumberClick()
+                }
             }
+
+        val requestRedirectionRole =
+            rememberLauncherForActivityResult(contract = callRedirectionContract, onResult = {
+                callRedirectionCallback.onActivityResult(it)
+            })
+
+        Text(
+            modifier = Modifier.height(500.dp),
+            text = stringResource(id = R.string.msg_do_not_call_him),
+            style = MaterialTheme.typography.headlineLarge.copy(
+                fontSize = 96.sp,
+                lineHeight = 100.sp,
+                color = isSystemInDarkTheme().let {
+                    if (it) {
+                        MaterialTheme.colorScheme.onBackground
+                    } else {
+                        MaterialTheme.colorScheme.onSurface
+                    }
+                }
+            )
+        )
+
+        Button(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(56.dp)
+                .padding(horizontal = 24.dp),
+            shape = MaterialTheme.shapes.medium,
+            onClick = {
+                if (context.getSystemService(RoleManager::class.java)
+                        .isRoleAvailable(RoleManager.ROLE_CALL_REDIRECTION)
+                ) {
+                    requestRedirectionRole.launch(null)
+                } else {
+                    Toast.makeText(
+                        context,
+                        context.getString(R.string.msg_phoe_does_not_allow_role_required),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            },
+        ) {
+            Text(text = stringResource(id = R.string.msg_add_number_you_do_not_want_to_make))
         }
     }
+}
 
-    private fun toAddNumberScreen() {
-        findNavController().navigate(R.id.screenAddRemoveNumber)
-    }
-
-    private fun hasRedirectionRole(): Boolean {
-        return requireContext().getSystemService(RoleManager::class.java)
-            .isRoleHeld(RoleManager.ROLE_CALL_REDIRECTION)
-    }
-
-    private fun requestRedirectionRole() {
-        if (roleAvailable()) {
-            requestRedirectionRole.launch(null)
-        } else {
-            Toast.makeText(
-                requireContext(),
-                getString(R.string.msg_phoe_does_not_allow_role_required),
-                Toast.LENGTH_SHORT
-            ).show()
-        }
-    }
-
-    private fun roleAvailable(): Boolean {
-        return requireContext().getSystemService(RoleManager::class.java)
-            .isRoleAvailable(RoleManager.ROLE_CALL_REDIRECTION)
-    }
-
+@Preview(
+    showBackground = true,
+    showSystemUi = true,
+    uiMode = Configuration.UI_MODE_NIGHT_YES
+)
+@Composable
+fun MainScreenPreview() {
+    MainScreen(onAddNumberClick = {})
 }
