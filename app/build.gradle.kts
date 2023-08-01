@@ -84,6 +84,7 @@ dependencies {
     implementation(libs.compose.ui.graphics)
     implementation(libs.compose.ui.tooling.preview)
     implementation(libs.compose.material)
+    implementation(libs.navigation.compose)
 
     androidTestImplementation(platform(libs.compose.bom))
     androidTestImplementation(libs.compose.ui.junit4)
@@ -95,8 +96,8 @@ dependencies {
 
     debugImplementation(libs.fragment.testing)
 
-    implementation(libs.navgitation.fragment.ktx)
-    implementation(libs.navgitation.ui.ktx)
+    implementation(libs.navigation.fragment.ktx)
+    implementation(libs.navigation.ui.ktx)
 
     //dagger
     implementation(libs.dagger)
@@ -125,7 +126,7 @@ dependencies {
     androidTestImplementation(libs.truth)
     androidTestImplementation(libs.coroutine.testing)
     androidTestImplementation(libs.testRunner)
-    androidTestImplementation(libs.navgitation.testing)
+    androidTestImplementation(libs.navigation.testing)
     androidTestImplementation(libs.hilt.testing)
     androidTestImplementation(libs.room.testing)
 
