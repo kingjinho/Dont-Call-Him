@@ -45,11 +45,7 @@ fun MainScreen(onAddNumberClick: () -> Unit) {
         val callRedirectionCallback =
             ActivityResultCallback<Int> { resultCode ->
                 if (resultCode != Activity.RESULT_OK) {
-                    Toast.makeText(
-                        context,
-                        context.getString(R.string.msg_error_not_being_default_app),
-                        Toast.LENGTH_LONG
-                    ).show()
+                    showToast(context, R.string.msg_error_not_being_default_app, Toast.LENGTH_LONG)
                 } else {
                     onAddNumberClick()
                 }
@@ -88,17 +84,21 @@ fun MainScreen(onAddNumberClick: () -> Unit) {
                 ) {
                     requestRedirectionRole.launch(null)
                 } else {
-                    Toast.makeText(
+                    showToast(
                         context,
-                        context.getString(R.string.msg_phoe_does_not_allow_role_required),
+                        R.string.msg_phoe_does_not_allow_role_required,
                         Toast.LENGTH_SHORT
-                    ).show()
+                    )
                 }
             },
         ) {
             Text(text = stringResource(id = R.string.msg_add_number_you_do_not_want_to_make))
         }
     }
+}
+
+private fun showToast(context: Context, msgRes: Int, duration: Int) {
+    Toast.makeText(context, context.getString(msgRes), duration).show()
 }
 
 @Preview(
