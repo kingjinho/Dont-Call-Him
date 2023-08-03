@@ -2,8 +2,8 @@
 
 lifecycle = "2.6.1"
 androidGradlePlugin = "8.1.0"
-kotlin = "1.8.20"
-kotlinBom = "1.8.20"
+kotlin = "1.8.10"
+kotlinBom = "1.8.10"
 
 compose = "1.7.2"
 composeBom = "2023.06.01"
@@ -16,6 +16,7 @@ navigation = "2.6.0"
 dagger = "2.47"
 room = "2.5.2"
 hilt = "2.47"
+hiltNavigationCompose = "1.0.0"
 
 junit = "1.1.5"
 fragmentTesting = "1.6.1"
@@ -32,7 +33,9 @@ coreTesting = "1.5.0"
 
 [libraries]
 
+hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltNavigationCompose" }
 lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle" }
+lifecycle-viewmodel-compose = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "lifecycle" }
 appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
