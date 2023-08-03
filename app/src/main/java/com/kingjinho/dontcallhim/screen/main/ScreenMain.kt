@@ -4,7 +4,6 @@ import android.app.Activity
 import android.app.role.RoleManager
 import android.content.Context
 import android.content.Intent
-import android.content.res.Configuration
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.ActivityResultCallback
@@ -21,10 +20,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.kingjinho.dontcallhim.R
+import com.kingjinho.dontcallhim.preview.DarkLightPreviews
+import com.kingjinho.dontcallhim.preview.FontScalePreviews
+import com.kingjinho.dontcallhim.ui.theme.DontCallHimTheme
 
 @Composable
 fun MainScreen(onAddNumberClick: () -> Unit) {
@@ -101,12 +102,11 @@ private fun showToast(context: Context, msgRes: Int, duration: Int) {
     Toast.makeText(context, context.getString(msgRes), duration).show()
 }
 
-@Preview(
-    showBackground = true,
-    showSystemUi = true,
-    uiMode = Configuration.UI_MODE_NIGHT_YES
-)
+@FontScalePreviews
+@DarkLightPreviews
 @Composable
 fun MainScreenPreview() {
-    MainScreen(onAddNumberClick = {})
+    DontCallHimTheme {
+        MainScreen(onAddNumberClick = {})
+    }
 }
