@@ -25,15 +25,19 @@ class OutgoingCallVM @Inject constructor(
         viewModelScope.launch {
             if (!number.isValidPhoneNumber()) {
                 _addNumberResult.value = Result.Failure
+            } else if (addNumberUseCase.isNumberAlreadySaved(number)) {
+                _addNumberResult.value = Result.Failure
             } else {
-                addNumberUseCase.invoke(number.replace("-", ""))
+                addNumberUseCase.invoke(number)
                 _addNumberResult.value = Result.Success
             }
         }
     }
+
     fun resetResult() {
         _addNumberResult.value = null
     }
+
     fun fetchSavedNumbers() = fetchNumbersUseCase.invoke()
 }
 
