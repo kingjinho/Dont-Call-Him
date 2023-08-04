@@ -13,4 +13,4 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "DontCallHim"
-include ':app'
+include(":app")
