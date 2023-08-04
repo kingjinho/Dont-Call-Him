@@ -78,6 +78,7 @@ dependencies {
     implementation(platform(libs.kotlin.bom))
 
     implementation(libs.compose.runtime)
+    implementation(libs.lifecycle.runtime.compose)
     implementation(libs.lifecycle.runtime.ktx)
     implementation(libs.lifecycle.viewmodel.compose)
     implementation(libs.activity.compose)
