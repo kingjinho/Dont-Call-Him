@@ -9,4 +9,8 @@ class AddNumberRepo @Inject constructor(private val db: AppDatabase) {
     suspend fun addNumber(number: String) {
         db.phoneNumberDao().insertNumber(PhoneNumber(number = number))
     }
+
+    suspend fun isNumberAlreadySaved(number: String): Boolean {
+        return db.phoneNumberDao().getExistingData(number)
+    }
 }

@@ -7,7 +7,15 @@ class AddNumberUseCaseImpl @Inject constructor(
     private val addNumberRepo: AddNumberRepo
 ) : AddNumberUseCase {
     override suspend fun invoke(number: String): Boolean {
-        addNumberRepo.addNumber(number)
-        return true
+        return if (isNumberAlreadySaved(number)) {
+            false
+        } else {
+            addNumberRepo.addNumber(number)
+            true
+        }
+    }
+
+    override suspend fun isNumberAlreadySaved(number: String): Boolean {
+        return addNumberRepo.isNumberAlreadySaved(number)
     }
 }
