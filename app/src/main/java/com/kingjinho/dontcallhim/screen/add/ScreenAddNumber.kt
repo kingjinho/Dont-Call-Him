@@ -18,7 +18,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -31,12 +30,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.test.core.app.ApplicationProvider
 import com.kingjinho.dontcallhim.R
 import com.kingjinho.dontcallhim.utils.PhoneNumberVisualTransformation
 import com.kingjinho.dontcallhim.viewmodels.OutgoingCallVM
 import com.kingjinho.dontcallhim.viewmodels.Result
-import java.util.Locale
 
 //@AndroidEntryPoint
 //class ScreenAddNumber : Fragment(), ScreenAddNumberMvc.Listener {
@@ -91,6 +90,9 @@ fun AddNumberScreen(
 ) {
     val scrollState = rememberScrollState()
     var phoneNumber by rememberSaveable { mutableStateOf("") }
+    val phoneNumbers by viewModel.fetchSavedNumbers().collectAsStateWithLifecycle(
+        initialValue = emptyList()
+    )
 
     Column(
         modifier = Modifier
@@ -127,23 +129,25 @@ fun AddNumberScreen(
         }
 
         Spacer(modifier = Modifier.height(24.dp))
-        viewModel.fetchSavedNumbers().collectAsState(initial = emptyList()).value.forEach {
 
-            Card(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(56.dp)
-            ) {
-                Text(
+        if(phoneNumbers.isNotEmpty()) {
+            phoneNumbers.forEach {
+                Card(
                     modifier = Modifier
-                        .fillMaxHeight()
-                        .padding(start = 12.dp)
-                        .wrapContentHeight(),
-                    style = MaterialTheme.typography.bodyMedium.copy(fontSize = 24.sp),
-                    text = PhoneNumberUtils.formatNumber(it.number, Locale.KOREA.country),
-                )
+                        .fillMaxWidth()
+                        .height(56.dp)
+                ) {
+                    Text(
+                        modifier = Modifier
+                            .fillMaxHeight()
+                            .padding(start = 12.dp)
+                            .wrapContentHeight(),
+                        style = MaterialTheme.typography.bodyMedium.copy(fontSize = 24.sp),
+                        text = it.formattedNumber,
+                    )
+                }
+                Spacer(modifier = Modifier.height(16.dp))
             }
-            Spacer(modifier = Modifier.height(16.dp))
         }
     }
 }
