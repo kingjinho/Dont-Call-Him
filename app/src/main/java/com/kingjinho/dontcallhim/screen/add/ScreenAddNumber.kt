@@ -1,6 +1,5 @@
 package com.kingjinho.dontcallhim.screen.add
 
-import android.telephony.PhoneNumberUtils
 import android.widget.Toast
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -26,63 +25,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.test.core.app.ApplicationProvider
 import com.kingjinho.dontcallhim.R
 import com.kingjinho.dontcallhim.utils.PhoneNumberVisualTransformation
 import com.kingjinho.dontcallhim.viewmodels.OutgoingCallVM
 import com.kingjinho.dontcallhim.viewmodels.Result
 
-//@AndroidEntryPoint
-//class ScreenAddNumber : Fragment(), ScreenAddNumberMvc.Listener {
-//
-//    @Inject
-//    lateinit var viewMvcFactory: BaseViewMvcFactory
-//    private val addNumberVM: OutgoingCallVM by viewModels()
-//    private lateinit var viewMvc: ScreenAddNumberMvc
-//
-//    private var fetchAddNumbersJob: Job? = null
-//
-//    override fun setOnAddNumberClickListener() {
-//        val number = viewMvc.numberToAdd.text.toString()
-//        viewLifecycleOwner.lifecycleScope.launch {
-//            addNumberVM.addNumber(number).collectLatest {
-//                if (it == Result.Failure) {
-//                    Toast
-//                        .makeText(requireContext(), R.string.msg_invalid_number, Toast.LENGTH_SHORT)
-//                        .show()
-//                }
-//            }
-//        }
-//    }
-//
-//    override fun onAttach(context: Context) {
-//        super.onAttach(context)
-//    }
-//
-//    override fun onCreateView(
-//        inflater: LayoutInflater,
-//        container: ViewGroup?,
-//        savedInstanceState: Bundle?
-//    ): View {
-//        viewMvc = viewMvcFactory.newAddNumberMvc(container)
-//        viewMvc.addButtonClickListener(this)
-//        return viewMvc.rootView
-//    }
-//
-//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-//        super.onViewCreated(view, savedInstanceState)
-//        fetchAddNumbersJob = viewLifecycleOwner.lifecycleScope.launch {
-//            addNumberVM.fetchSavedNumbers().collectLatest {
-//                viewMvc.submitList(it)
-//            }
-//        }
-//    }
-//}
 
 @Composable
 fun AddNumberScreen(
@@ -165,16 +115,5 @@ fun PhoneNumberTextField(
         singleLine = true,
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone),
         visualTransformation = PhoneNumberVisualTransformation()
-    )
-}
-
-@Preview(showSystemUi = true)
-@Composable
-fun AddNumberScreenPreview() {
-    AddNumberScreen(
-        viewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(
-            ApplicationProvider.getApplicationContext()
-        )
-            .create(OutgoingCallVM::class.java)
     )
 }

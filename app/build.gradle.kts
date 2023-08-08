@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
 
 @Suppress("DSL_SCOPE_VIOLATION")
 plugins {
@@ -10,6 +11,15 @@ plugins {
 
 android {
 
+    signingConfigs {
+        create("release") {
+            storeFile = file(getValueByKey("storeFilePath"))
+            storePassword = getValueByKey("storePassword")
+            keyAlias = getValueByKey("keyAlias")
+            keyPassword = getValueByKey("keyPassword")
+        }
+    }
+
     namespace = "com.kingjinho.dontcallhim"
     compileSdk = 33
 
@@ -17,8 +27,8 @@ android {
         applicationId = "com.kingjinho.dontcallhim"
         minSdk = 29
         targetSdk = 33
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = 3
+        versionName = "1.0.2"
 
         testInstrumentationRunner = "com.kingjinho.dontcallhim.runner.HiltTestRunner"
         vectorDrawables {
@@ -30,15 +40,18 @@ android {
             }
             correctErrorTypes = true
         }
+        setProperty("archivesBaseName", "dontcallhim-($versionName)")
     }
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
+            isShrinkResources = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            signingConfig = signingConfigs.getByName("release")
         }
     }
     compileOptions {
@@ -48,7 +61,7 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-    packagingOptions {
+    packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
@@ -158,4 +171,8 @@ tasks.withType(KotlinCompile::class.java).configureEach {
         // Set JVM target to 1.8
         jvmTarget = "1.8"
     }
+}
+
+fun getValueByKey(key: String): String {
+    return gradleLocalProperties(rootDir).getProperty(key)!!
 }
