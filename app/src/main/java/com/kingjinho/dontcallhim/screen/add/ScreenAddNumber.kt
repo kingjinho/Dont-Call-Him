@@ -1,6 +1,5 @@
 package com.kingjinho.dontcallhim.screen.add
 
-import android.telephony.PhoneNumberUtils
 import android.widget.Toast
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -37,52 +36,6 @@ import com.kingjinho.dontcallhim.utils.PhoneNumberVisualTransformation
 import com.kingjinho.dontcallhim.viewmodels.OutgoingCallVM
 import com.kingjinho.dontcallhim.viewmodels.Result
 
-//@AndroidEntryPoint
-//class ScreenAddNumber : Fragment(), ScreenAddNumberMvc.Listener {
-//
-//    @Inject
-//    lateinit var viewMvcFactory: BaseViewMvcFactory
-//    private val addNumberVM: OutgoingCallVM by viewModels()
-//    private lateinit var viewMvc: ScreenAddNumberMvc
-//
-//    private var fetchAddNumbersJob: Job? = null
-//
-//    override fun setOnAddNumberClickListener() {
-//        val number = viewMvc.numberToAdd.text.toString()
-//        viewLifecycleOwner.lifecycleScope.launch {
-//            addNumberVM.addNumber(number).collectLatest {
-//                if (it == Result.Failure) {
-//                    Toast
-//                        .makeText(requireContext(), R.string.msg_invalid_number, Toast.LENGTH_SHORT)
-//                        .show()
-//                }
-//            }
-//        }
-//    }
-//
-//    override fun onAttach(context: Context) {
-//        super.onAttach(context)
-//    }
-//
-//    override fun onCreateView(
-//        inflater: LayoutInflater,
-//        container: ViewGroup?,
-//        savedInstanceState: Bundle?
-//    ): View {
-//        viewMvc = viewMvcFactory.newAddNumberMvc(container)
-//        viewMvc.addButtonClickListener(this)
-//        return viewMvc.rootView
-//    }
-//
-//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-//        super.onViewCreated(view, savedInstanceState)
-//        fetchAddNumbersJob = viewLifecycleOwner.lifecycleScope.launch {
-//            addNumberVM.fetchSavedNumbers().collectLatest {
-//                viewMvc.submitList(it)
-//            }
-//        }
-//    }
-//}
 
 @Composable
 fun AddNumberScreen(
