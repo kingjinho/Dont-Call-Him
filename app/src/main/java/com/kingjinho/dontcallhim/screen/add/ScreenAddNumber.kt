@@ -25,12 +25,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.test.core.app.ApplicationProvider
 import com.kingjinho.dontcallhim.R
 import com.kingjinho.dontcallhim.utils.PhoneNumberVisualTransformation
 import com.kingjinho.dontcallhim.viewmodels.OutgoingCallVM
@@ -118,16 +115,5 @@ fun PhoneNumberTextField(
         singleLine = true,
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone),
         visualTransformation = PhoneNumberVisualTransformation()
-    )
-}
-
-@Preview(showSystemUi = true)
-@Composable
-fun AddNumberScreenPreview() {
-    AddNumberScreen(
-        viewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(
-            ApplicationProvider.getApplicationContext()
-        )
-            .create(OutgoingCallVM::class.java)
     )
 }
