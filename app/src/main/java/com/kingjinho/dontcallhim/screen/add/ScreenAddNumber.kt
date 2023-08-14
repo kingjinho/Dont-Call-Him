@@ -50,10 +50,19 @@ fun AddNumberScreen(
             .verticalScroll(scrollState)
     ) {
         val context = LocalContext.current
-        if (viewModel.addNumberResult.value == Result.Failure) {
-            Toast.makeText(context, R.string.msg_invalid_number, Toast.LENGTH_SHORT)
-                .show()
-            viewModel.resetResult()
+        viewModel.addNumberResult.value?.let {
+            if (viewModel.addNumberResult.value != Result.Success) {
+                Toast.makeText(
+                    context,
+                    when (viewModel.addNumberResult.value) {
+                        Result.Invalid -> R.string.msg_invalid_number
+                        Result.Existing -> R.string.msg_existing_number
+                        else -> null
+                    }?.let { stringResource(id = it) },
+                    Toast.LENGTH_SHORT
+                ).show()
+                viewModel.resetResult()
+            }
         }
 
         PhoneNumberTextField(
@@ -80,7 +89,7 @@ fun AddNumberScreen(
 
         Spacer(modifier = Modifier.height(24.dp))
 
-        if(phoneNumbers.isNotEmpty()) {
+        if (phoneNumbers.isNotEmpty()) {
             phoneNumbers.forEach {
                 Card(
                     modifier = Modifier
@@ -110,7 +119,8 @@ fun PhoneNumberTextField(
 ) {
     TextField(
         modifier = modifier.fillMaxWidth(),
-        value = phoneNumber, onValueChange = onValueChange,
+        value = phoneNumber,
+        onValueChange = onValueChange,
         placeholder = { Text(text = stringResource(id = R.string.msg_add_number_you_do_not_want_to_make)) },
         singleLine = true,
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone),
