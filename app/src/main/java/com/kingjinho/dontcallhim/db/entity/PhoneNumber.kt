@@ -1,10 +1,9 @@
 package com.kingjinho.dontcallhim.db.entity
 
-import android.telephony.PhoneNumberUtils
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.kingjinho.dontcallhim.utils.Constant
-import java.util.Locale
+import com.kingjinho.dontcallhim.utils.convertToPhoneNumber
 
 @Entity(tableName = Constant.TABLE_NAME_PHONE_NUMBER)
 data class PhoneNumber(
@@ -13,6 +12,6 @@ data class PhoneNumber(
     val number: String
 ) {
     val formattedNumber: String
-        get() = PhoneNumberUtils.formatNumber(number, Locale.KOREA.country)
+        get() = number.convertToPhoneNumber()
 
 }
