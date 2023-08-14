@@ -7,4 +7,5 @@
     <string name="text_add">발신제한 번호 추가하기</string>
     <string name="msg_invalid_number">잘못된 번호입니다.</string>
     <string name="msg_role_required_to_block_outgoing_call">발신 차단을 위해선 권한이 필요 합니다.</string>
+    <string name="msg_existing_number">이미 존재하는 번호입니다.</string>
 </resources>
