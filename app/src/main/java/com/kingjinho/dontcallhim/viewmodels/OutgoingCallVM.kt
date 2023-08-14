@@ -24,9 +24,9 @@ class OutgoingCallVM @Inject constructor(
     fun addNumber(number: String) {
         viewModelScope.launch {
             if (!number.isValidPhoneNumber()) {
-                _addNumberResult.value = Result.Failure
+                _addNumberResult.value = Result.Invalid
             } else if (addNumberUseCase.isNumberAlreadySaved(number)) {
-                _addNumberResult.value = Result.Failure
+                _addNumberResult.value = Result.Existing
             } else {
                 addNumberUseCase.invoke(number)
                 _addNumberResult.value = Result.Success
@@ -43,5 +43,6 @@ class OutgoingCallVM @Inject constructor(
 
 sealed class Result {
     object Success : Result()
-    object Failure : Result()
+    object Invalid : Result()
+    object Existing: Result()
 }
