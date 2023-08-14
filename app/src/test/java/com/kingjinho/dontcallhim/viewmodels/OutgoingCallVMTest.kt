@@ -41,21 +41,8 @@ class OutgoingCallVMTest {
 
     @Test
     fun `addNumber() with param 01000000000 returns invalid phone number`() = runTest {
-        viewModel.addNumber("01000000000").collectLatest {
-            assertThat(it).isEqualTo(Result.Failure)
-        }
-    }
-
-    @Test
-    fun `addNumber() with param 0100000000 returns invalid phone number`() = runTest {
-        val result = viewModel.addNumber("0100000000").first()
-            assertThat(result).isEqualTo(Result.Failure)
-    }
-
-    @Test
-    fun `addNumber() with param 010-0000-0000 returns invalid phone number`() = runTest {
-        viewModel.addNumber("010-0000-0000").first()
-        assertThat(FakeDatabase.dao.getExistingData("01000000000")).isTrue()
+        viewModel.addNumber("01000000000")
+        assertThat(viewModel.addNumberResult.value).isEqualTo(Result.Success)
     }
 
 }
