@@ -9,4 +9,8 @@ class FakeAddNumberUseCaseImpl(private val repo: FakeAddNumberRepository): AddNu
         repo.addNumber(number)
         return true
     }
+
+    override suspend fun isNumberAlreadySaved(number: String): Boolean {
+        return repo.numberExists(number)
+    }
 }
