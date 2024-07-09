@@ -21,12 +21,12 @@ android {
     }
 
     namespace = "com.kingjinho.dontcallhim"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.kingjinho.dontcallhim"
         minSdk = 29
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 4
         versionName = "1.0.3"
 
